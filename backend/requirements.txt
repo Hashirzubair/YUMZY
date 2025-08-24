@@ -1,0 +1,158 @@
+# Core FastAPI and ASGI server
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic[email]==2.5.0
+
+# Authentication and Security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
+
+# Database
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.10
+alembic==1.12.1
+
+# Redis and Caching
+redis==5.0.1
+aioredis==2.0.1
+
+# Background Tasks
+celery==5.3.4
+
+# Environment and Configuration
+python-dotenv==1.0.0
+
+# HTTP Client for external APIs
+httpx==0.25.2
+aiohttp==3.9.1
+
+# Image Processing
+Pillow==10.1.0
+# Use the Windows-friendly build of libmagic
+python-magic-bin==0.4.14
+
+# File Handling
+aiofiles==23.2.1
+boto3==1.34.0  # For AWS S3 integration
+
+# Data Processing and Analysis (bumped for Python 3.12)
+pandas==2.2.2
+numpy==1.26.4
+
+# Search and Text Processing
+elasticsearch==8.11.0
+whoosh==2.7.4
+
+# Email
+emails==0.6.0
+jinja2==3.1.2
+
+# Monitoring and Logging
+sentry-sdk[fastapi]==1.38.0
+structlog==23.2.0
+
+# Validation and Parsing
+validators==0.22.0
+python-slugify==8.0.1
+python-dateutil==2.8.2
+
+# API Documentation
+fastapi-users==12.1.2
+fastapi-pagination==0.12.14
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+faker==20.1.0
+factory-boy==3.3.0
+
+# Development and Code Quality
+black==23.11.0
+isort==5.12.0
+flake8==6.1.0
+mypy==1.7.1
+pre-commit==3.5.0
+
+# Social Media Integration
+tweepy==4.14.0  # Twitter API
+python-facebook-api==0.20.1  # ✅ 0.17.2 doesn't exist on PyPI
+
+# External Recipe APIs
+spoonacular==2.0.0
+requests==2.31.0
+
+# Nutrition Data
+usda-ndb-api==0.3.0
+
+# Rate Limiting
+slowapi==0.1.9
+
+# WebSocket Support (for real-time features)
+websockets==12.0
+
+# CORS and Security Headers
+fastapi-security==0.5.0
+
+# Health Checks
+healthcheck==1.3.3
+
+# Metrics and Analytics
+prometheus-client==0.19.0
+
+# Configuration Management
+dynaconf==3.2.4
+
+# Date and Time
+arrow==1.3.0
+pytz==2023.3
+
+# Cryptography
+cryptography==41.0.8
+
+# URL and String Processing
+furl==2.1.3
+shortuuid==1.0.11
+
+# Excel Export (for recipe data)
+openpyxl==3.1.2
+
+# PDF Generation
+reportlab==4.0.7
+weasyprint==60.2
+
+# Machine Learning (for recommendations) — bumped for Python 3.12
+scikit-learn==1.4.2
+scipy==1.12.0
+
+# NLP Processing (for recipe analysis)
+nltk==3.8.1
+textblob==0.17.1
+
+# Geolocation (for local recipes)
+geopy==2.4.0
+
+# QR Code Generation (for recipe sharing)
+qrcode[pil]==7.4.2
+
+# Color Processing (for recipe images)
+colorthief==0.2.1
+
+# Markdown Processing (for rich recipe descriptions)
+markdown==3.5.1
+
+# XML Processing — bump for Python 3.12 wheels
+lxml==5.2.2
+
+# JSON Schema Validation
+jsonschema==4.20.0
+
+# Async Database Pool
+asyncpg==0.29.0
+
+# Memory Profiling (development)
+memory-profiler==0.61.0
+
+# Load Testing (development)
+locust==2.17.0
