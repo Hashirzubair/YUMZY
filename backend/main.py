@@ -1,42 +1,46 @@
-# main.py
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from contextlib import asynccontextmanager
+import logging
 
-# Import all your API routes
-from api import auth, recipes, search, users, favorites, shopping, social
-from core.middleware import TimingMiddleware, LoggingMiddleware
+from database import create_tables
+from api.auth import router as auth_router
+# Import other routers similarly: recipes_router, search_router, etc.
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info("Starting YUMZY API...")
+    create_tables()
+    logger.info("Tables created")
+    yield
+    logger.info("Shutting down YUMZY API...")
 
 app = FastAPI(
     title="YUMZY Recipe Finder API",
-    description="🍳 Recipe discovery platform for mobile apps",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan,
 )
 
-# Add middleware
-app.add_middleware(TimingMiddleware)
-app.add_middleware(LoggingMiddleware)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Configure for your mobile app
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include all routers
-app.include_router(auth.router)
-app.include_router(recipes.router) 
-app.include_router(search.router)
-app.include_router(users.router)
-app.include_router(favorites.router)
-app.include_router(shopping.router)
-app.include_router(social.router)
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request: Request, exc: HTTPException):
+    return JSONResponse(status_code=exc.status_code, content={"error": True, "message": exc.detail})
 
-# Health check
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy", "service": "YUMZY API"}
+@app.exception_handler(Exception)
+async def exception_handler(request: Request, exc: Exception):
+    logger.error(f"Unhandled error: {exc}", exc_info=True)
+    return JSONResponse(status_code=500, content={"error": True, "message": "Internal server error"})
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+app.include_router(auth_router)
+# Include other routers: recipes_router, users_router, favorites_router, etc.
